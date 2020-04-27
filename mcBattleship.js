@@ -32,9 +32,9 @@ var model = {
     shipsSunk: 0,
     shipLength: 3,
 
-    ships: [{ locations: ["06", "16", "26"], hits: ["", "", ""] },
-            { locations: ["24", "34", "44"], hits: ["", "", ""] },
-            { locations: ["10", "11", "12"], hits: ["", "", ""] }],
+    ships: [{ locations: [0, 0, 0], hits: ["", "", ""] },
+            { locations: [0, 0, 0], hits: ["", "", ""] },
+            { locations: [0, 0, 0], hits: ["", "", ""] }],
     fire: function(guess) {
 
         for(var i = 0; i < this.numShips; i++) {
@@ -144,3 +144,30 @@ console.log(parseGuess("G3"));
 console.log(parseGuess("H0"));
 console.log(parseGuess("A7"));
 */
+
+function init() {
+    var fireButton = document.getElementById("fireButton");
+    fireButton.onclick = handleFireButton;
+    var guessInput = document.getElementById("guessInput");
+    guessInput.onkeypress = handleKeyPress;
+
+    model.generateShipLocations();
+}
+
+function handleFireButton() {
+    var guessInput = document.getElementById("guessInput");
+    var guess = guessInput.value;
+    controller.processGuess(guess);
+
+    guessInput.value = "";
+}
+
+function handleKeyPress(e) {
+    var fireButton = document.getElementById("fireButton");
+    if(e.keyCode === 13) {
+        fireButton.click();
+        return false;
+    }
+}
+
+window.onload = init;
